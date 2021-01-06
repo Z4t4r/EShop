@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace EShopSample.EntityFrameworkCore
 {
@@ -15,9 +17,12 @@ namespace EShopSample.EntityFrameworkCore
 
             var configuration = BuildConfiguration();
 
+            //var builder = new DbContextOptionsBuilder<EShopSampleMigrationsDbContext>()
+            //    .UseSqlServer(configuration.GetConnectionString("Default"));
+            var tt = configuration.GetConnectionString("Default");
+            //var serverVersion = new ServerVersion(new Version(8, 0, 19), Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MySql);
             var builder = new DbContextOptionsBuilder<EShopSampleMigrationsDbContext>()
-                .UseSqlServer(configuration.GetConnectionString("Default"));
-
+                .UseMySql(tt,new MySqlServerVersion(new Version(8,0,21)));
             return new EShopSampleMigrationsDbContext(builder.Options);
         }
 

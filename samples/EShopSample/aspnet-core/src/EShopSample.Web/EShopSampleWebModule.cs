@@ -286,7 +286,6 @@ namespace EShopSample.Web
             app.UseRouting();
             app.UseAuthentication();
             app.UseJwtTokenMiddleware();
-
             if (MultiTenancyConsts.IsEnabled)
             {
                 app.UseMultiTenancy();
